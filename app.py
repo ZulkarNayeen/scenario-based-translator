@@ -1,4 +1,5 @@
 import streamlit as st
+import time
 
 from langchain_community.document_loaders import PDFPlumberLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
@@ -69,14 +70,17 @@ if uploaded_file:
 
     if question:
         st.chat_message("user").write(question)
-        documents = load_pdf(pdfs_directory + uploaded_file.name)
-        print("[INFO] PDF loaded!")
-        chunked_documents = split_text(documents)
-        print("[INFO] documents chunked!")
-        index_docs(chunked_documents)
-        print("[INFO] documents indexed!")
-        related_documents = retrieve_docs(question)
-        print("[INFO] documents retrieved!")
-        answer = answer_question(question, related_documents)
-        print("[INFO] Answer generated!")
+        with st.spinner("Generating...", show_time=True):
+            documents = load_pdf(pdfs_directory + uploaded_file.name)
+            print("[INFO] PDF loaded!")
+            chunked_documents = split_text(documents)
+            print("[INFO] documents chunked!")
+            index_docs(chunked_documents)
+            print("[INFO] documents indexed!")
+            related_documents = retrieve_docs(question)
+            print("[INFO] documents retrieved!")
+            answer = answer_question(question, related_documents)
+            print("[INFO] Answer generated!")
+            print("\n\n")
+            print(answer)        
         st.chat_message("assistant").markdown(answer)
