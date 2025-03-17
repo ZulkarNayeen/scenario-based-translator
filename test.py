@@ -17,7 +17,7 @@ When a government forbids peaceful assembly, it violates Article 20 of the Decla
 think_content = answer.split("<think>")[1].split("</think>")[0].strip()
 final_answer = answer.split("</think>")[1].strip()
 
-think_content = """> {think_content}""".format(think_content=think_content)
+think_content = '<div style="color: #6A6A6A; padding: 10px; border-radius: 5px;"><strong>Thought</strong><blockquote style="margin: 10px 0; border-left: 4px solid #6A6A6A; padding-left: 10px;">' + think_content + '</blockquote></div>'
 
 # Display in chat
 with st.chat_message("assistant"):

@@ -81,6 +81,11 @@ if uploaded_file:
             print("[INFO] documents retrieved!")
             answer = answer_question(question, related_documents)
             print("[INFO] Answer generated!")
-            print("\n\n")
-            print(answer)        
-        st.chat_message("assistant").markdown(answer)
+            print(answer)
+            think_content = answer.split("<think>")[1].split("</think>")[0].strip()
+            think_content = '<div style="color: #6A6A6A; padding: 10px; border-radius: 5px;"><strong>Thought</strong><blockquote style="margin: 10px 0; border-left: 4px solid #6A6A6A; padding-left: 10px;">' + think_content + '</blockquote></div>'
+            final_answer = answer.split("</think>")[1].strip()
+            
+        with st.chat_message("assistant"):
+            st.markdown(think_content, unsafe_allow_html=True)
+            st.markdown(final_answer)
