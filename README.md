@@ -1,5 +1,10 @@
 # RAG
 
+## Install Libraries
+```bash
+pip install -r requirements.txt
+```
+
 ## Run app.py
 ```bash
 streamlit run app.py
